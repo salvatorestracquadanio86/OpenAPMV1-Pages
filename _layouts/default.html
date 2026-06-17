@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <title>{% if page.title and page.title != "Home" %}{{ page.title }} — {% endif %}{{ site.title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="{{ '/' | relative_url }}" class="nav-brand">
+        <span class="brand-logo">APM</span>
+        <span class="brand-name">OpenAPM</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.getElementById('navbar').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="active"{% endif %}>Home</a></li>
+        <li><a href="{{ '/blog/' | relative_url }}"{% if page.url contains '/blog' %} class="active"{% endif %}>Progress</a></li>
+        <li><a href="{{ '/modules/' | relative_url }}"{% if page.url contains '/modules' %} class="active"{% endif %}>Modules</a></li>
+        <li><a href="{{ '/install/' | relative_url }}"{% if page.url contains '/install' %} class="active"{% endif %}>Install</a></li>
+        <li><a href="{{ '/contact/' | relative_url }}"{% if page.url contains '/contact' %} class="active"{% endif %}>Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    {{ content }}
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="{{ '/' | relative_url }}" class="nav-brand" style="margin-bottom:10px">
+            <span class="brand-logo">APM</span>
+            <span class="brand-name" style="color:white">OpenAPM</span>
+          </a>
+          <p class="footer-tagline">Asset Performance Management for Everyone</p>
+          <p class="footer-tagline" style="margin-top:8px">A personal project by {{ site.author }}</p>
+        </div>
+        <div class="footer-links">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="{{ '/' | relative_url }}">Home</a></li>
+            <li><a href="{{ '/blog/' | relative_url }}">Progress</a></li>
+            <li><a href="{{ '/modules/' | relative_url }}">Modules</a></li>
+            <li><a href="{{ '/install/' | relative_url }}">Install</a></li>
+            <li><a href="{{ '/contact/' | relative_url }}">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-social">
+          <h4>Connect</h4>
+          <a href="{{ site.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="{{ site.github }}" target="_blank" rel="noopener">GitHub</a>
+          <a href="mailto:{{ site.email }}">Email</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; {{ 'now' | date: "%Y" }} {{ site.author }} &mdash; OpenAPM is an independent personal initiative</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
