@@ -588,7 +588,166 @@ section    { padding: 80px 0; }
 .post-back a:hover { color: var(--accent-dark); }
 
 /* ============================================================
-   MODULES
+   MODULES — OAH card
+   ============================================================ */
+.oah-card {
+  background: linear-gradient(135deg, var(--primary) 0%, #102a44 100%);
+  border-radius: 16px;
+  padding: 40px;
+  margin-bottom: 48px;
+  color: white;
+}
+.oah-card-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.oah-left .module-status-badge { margin-bottom: 16px; }
+.oah-acronym {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.oah-left h2 { font-size: 26px; font-weight: 700; color: white; margin-bottom: 8px; }
+.oah-tagline { color: var(--accent); font-weight: 600; margin-bottom: 16px; font-size: 15px; }
+.oah-left p  { color: rgba(255,255,255,0.72); font-size: 15px; line-height: 1.75; margin-bottom: 12px; }
+.oah-left strong { color: white; }
+.oah-pillars { display: flex; flex-direction: column; gap: 16px; }
+.oah-pillar {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.pillar-icon { font-size: 24px; flex-shrink: 0; }
+.oah-pillar h4 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 4px; }
+.oah-pillar p  { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+/* MODULES — rich cards grid */
+.modules-grid-rich {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.module-card-rich {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.module-card-rich:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.module-card-future { border-style: dashed; }
+.module-card-future:hover { border-color: var(--text-light); }
+.mcr-header { display: flex; flex-direction: column; gap: 8px; }
+.mcr-icon { font-size: 32px; }
+.mcr-acronym {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.mcr-header h3 { font-size: 17px; font-weight: 700; color: var(--primary); }
+.mcr-desc { font-size: 14px; color: var(--text-light); line-height: 1.7; }
+.mcr-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1;
+}
+.mcr-features li {
+  font-size: 13px;
+  color: var(--text-light);
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.5;
+}
+.mcr-features li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 11px;
+  top: 1px;
+}
+.mcr-flow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.flow-tag {
+  background: rgba(15,188,181,0.1);
+  color: var(--accent-dark);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 4px;
+}
+.flow-arrow { color: var(--text-light); font-size: 12px; }
+
+/* MODULES — integration flows */
+.flow-examples { display: flex; flex-direction: column; gap: 20px; }
+.flow-example {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.flow-example-icon { font-size: 28px; flex-shrink: 0; }
+.flow-example h4 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 12px; }
+.flow-example-steps {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.fes {
+  background: rgba(15,188,181,0.15);
+  border: 1px solid rgba(15,188,181,0.2);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+.fes-arrow { color: rgba(255,255,255,0.35); font-size: 14px; }
+
+/* Responsive modules */
+@media (max-width: 920px) {
+  .oah-card-inner   { grid-template-columns: 1fr; }
+  .modules-grid-rich { grid-template-columns: repeat(2, 1fr); }
+  .flow-example { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 600px) {
+  .modules-grid-rich { grid-template-columns: 1fr; }
+  .oah-card { padding: 28px 20px; }
+}
+
+/* ============================================================
+   MODULES — legacy simple cards (kept for compatibility)
    ============================================================ */
 .modules-grid {
   display: grid;

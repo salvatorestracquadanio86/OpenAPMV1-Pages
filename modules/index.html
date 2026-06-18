@@ -1,29 +1,328 @@
 ---
 layout: default
 title: "Modules"
-description: "An overview of the OpenAPM functional modules — coming soon."
+description: "The OpenAPM platform is built around six interconnected modules, each addressing a specific aspect of Asset Performance Management."
 ---
 
 <section class="page-hero">
   <div class="container">
     <h1>Platform Modules</h1>
-    <p>A dedicated section for each OpenAPM module is on its way.</p>
+    <p>Six focused modules, designed to work independently and grow together — all centred on the asset.</p>
   </div>
 </section>
 
-<div class="container">
-  <div class="install-content">
-    <div class="coming-soon-card">
-      <div class="icon">🧩</div>
-      <h3>Module Documentation Coming Soon</h3>
+<!-- ASSET-CENTRIC INTRO -->
+<section style="padding: 64px 0 0">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Design Philosophy</span>
+      <h2>Everything starts from the asset</h2>
       <p>
-        This section will describe the individual functional modules of OpenAPM —
-        what each one does, how it works, and how to use it.
-      </p>
-      <p>
-        Content will be added here as modules are defined and developed.
-        In the meantime, <a href="{{ '/contact/' | relative_url }}">share your thoughts</a> on what matters most to you.
+        OpenAPM is an asset-centric system. Every event, every intervention, every document,
+        every measurement is traceable back to a specific asset — located in a precise place, with its own history.
       </p>
     </div>
+
+    <!-- OAH — core module, full width -->
+    <div class="oah-card">
+      <div class="oah-card-inner">
+        <div class="oah-left">
+          <span class="module-status-badge status-stable">✅ Implemented</span>
+          <div class="oah-acronym">OAH</div>
+          <h2>Operational Asset Hub</h2>
+          <p class="oah-tagline">The heart of the system — included in every configuration.</p>
+          <p>
+            OAH manages the <strong>location hierarchy</strong> (plants, departments, areas, units — freely modellable for any industry),
+            the <strong>equipment registry</strong> with type-specific technical characteristics, and the
+            <strong>universal event timeline</strong>.
+          </p>
+          <p>
+            Everything that happens on an asset — a failure, an intervention, an inspection, an anomaly —
+            is recorded chronologically. This register is the memory of the asset.
+          </p>
+        </div>
+        <div class="oah-right">
+          <div class="oah-pillars">
+            <div class="oah-pillar">
+              <div class="pillar-icon">🗺️</div>
+              <h4>Location Hierarchy</h4>
+              <p>Flexible multi-level structure adaptable to any industry or site layout</p>
+            </div>
+            <div class="oah-pillar">
+              <div class="pillar-icon">⚙️</div>
+              <h4>Equipment Registry</h4>
+              <p>Centralised asset catalog with dynamic technical specs per asset type</p>
+            </div>
+            <div class="oah-pillar">
+              <div class="pillar-icon">📅</div>
+              <h4>Event Timeline</h4>
+              <p>Chronological record of every event on every asset — the plant's long-term memory</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- OTHER MODULES GRID -->
+<section style="padding: 48px 0 64px">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:40px">
+      <span class="section-label">Functional Modules</span>
+      <h2>Built on top of OAH</h2>
+      <p>Each module extends OAH with a specific operational process — and connects seamlessly with the others.</p>
+    </div>
+
+    <div class="modules-grid-rich">
+
+      <!-- WOM -->
+      <div class="module-card-rich">
+        <div class="mcr-header">
+          <span class="module-status-badge status-wip">🔧 In Progress</span>
+          <div class="mcr-icon">🔧</div>
+          <div class="mcr-acronym">WOM</div>
+          <h3>Work Order Management</h3>
+        </div>
+        <p class="mcr-desc">Covers the full operational maintenance cycle — from field observations to formal work orders, intervention reports, and downtime tracking.</p>
+        <ul class="mcr-features">
+          <li>Field maintenance notes &amp; anomaly reports</li>
+          <li>Full work order lifecycle with approval workflow</li>
+          <li>Contractor &amp; internal execution management</li>
+          <li>Downtime tracking → MTBF / MTTR source data</li>
+          <li>ERP integration ready (Odoo, SAP, custom)</li>
+        </ul>
+        <div class="mcr-flow">
+          <span class="flow-tag">Note</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">Work Order</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">Report</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">OAH Timeline</span>
+        </div>
+      </div>
+
+      <!-- INS -->
+      <div class="module-card-rich">
+        <div class="mcr-header">
+          <span class="module-status-badge status-planned">📐 Design</span>
+          <div class="mcr-icon">🔍</div>
+          <div class="mcr-acronym">INS</div>
+          <h3>Inspection Module</h3>
+        </div>
+        <p class="mcr-desc">Manages one-shot inspections with adaptive forms that change based on the inspection type — guiding the user without requiring specialist knowledge.</p>
+        <ul class="mcr-features">
+          <li>Visual, checklist, thermographic, vibration</li>
+          <li>Ultrasonic thickness (UT), pressure testing</li>
+          <li>Regulatory compliance &amp; safety audits</li>
+          <li>Adaptive form per inspection type</li>
+          <li>Auto-generates WO on negative result</li>
+        </ul>
+        <div class="mcr-flow">
+          <span class="flow-tag">Plan</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">Execute</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">Result</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">WO if FAIL</span>
+        </div>
+      </div>
+
+      <!-- SCHED -->
+      <div class="module-card-rich">
+        <div class="mcr-header">
+          <span class="module-status-badge status-planned">📐 Design</span>
+          <div class="mcr-icon">📆</div>
+          <div class="mcr-acronym">SCHED</div>
+          <h3>Scheduling &amp; Planning</h3>
+        </div>
+        <p class="mcr-desc">Introduces recurring planning for preventive maintenance and inspections — with pre-built templates for common asset types so no one starts from zero.</p>
+        <ul class="mcr-features">
+          <li>Preventive maintenance &amp; inspection plans</li>
+          <li>Pre-seeded templates per asset type</li>
+          <li>Time-based, counter-based, condition-based triggers</li>
+          <li>Occurrence tracking &amp; compliance rate KPIs</li>
+          <li>Maintenance budget forecast</li>
+        </ul>
+        <div class="mcr-flow">
+          <span class="flow-tag">Plan</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">Occurrence</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">WO / INS</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">KPI</span>
+        </div>
+      </div>
+
+      <!-- AIM -->
+      <div class="module-card-rich">
+        <div class="mcr-header">
+          <span class="module-status-badge status-planned">📐 Design</span>
+          <div class="mcr-icon">📊</div>
+          <div class="mcr-acronym">AIM</div>
+          <h3>Asset Integrity Monitoring</h3>
+        </div>
+        <p class="mcr-desc">Transforms data into knowledge across three pillars: risk assessment, condition monitoring, and reliability statistics — all feeding back into OAH.</p>
+        <ul class="mcr-features">
+          <li>Guided risk matrix wizard (P × C, 5×5)</li>
+          <li>KPI monitoring with 3-zone thresholds</li>
+          <li>Auto health status update on OAH</li>
+          <li>MTBF, MTTR, Availability — auto-calculated</li>
+          <li>Failure Pareto &amp; reliability trend dashboard</li>
+        </ul>
+        <div class="mcr-flow">
+          <span class="flow-tag">KPI Data</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">Health Score</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">Risk Level</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">OAH</span>
+        </div>
+      </div>
+
+      <!-- LOG -->
+      <div class="module-card-rich">
+        <div class="mcr-header">
+          <span class="module-status-badge status-planned">📐 Design</span>
+          <div class="mcr-icon">📓</div>
+          <div class="mcr-acronym">LOG</div>
+          <h3>Digital Logbook</h3>
+        </div>
+        <p class="mcr-desc">Replaces paper sheets and chat groups with a structured operational register — contextualised to assets, with a built-in shift handover workflow.</p>
+        <ul class="mcr-features">
+          <li>Operational notes on assets or locations</li>
+          <li>Shift handover workflow (outgoing → incoming)</li>
+          <li>One-click escalation to WOM</li>
+          <li>Full-text search &amp; shift report export</li>
+          <li>Included in the free baseline tier</li>
+        </ul>
+        <div class="mcr-flow">
+          <span class="flow-tag">Note</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">Handover</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">Escalate</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-tag">WOM Note</span>
+        </div>
+      </div>
+
+      <!-- FUTURE -->
+      <div class="module-card-rich module-card-future">
+        <div class="mcr-header">
+          <span class="module-status-badge status-planned">🔮 Future</span>
+          <div class="mcr-icon">🔌</div>
+          <div class="mcr-acronym">+</div>
+          <h3>More to come</h3>
+        </div>
+        <p class="mcr-desc">Once the baseline modules are established, the roadmap will expand towards vertical-specific features and deeper integrations.</p>
+        <ul class="mcr-features">
+          <li>ERP integration layer (Odoo, SAP, custom)</li>
+          <li>Spare parts &amp; inventory management</li>
+          <li>Predictive analytics &amp; anomaly detection</li>
+          <li>Calibration &amp; certification tracking</li>
+          <li>AI-powered maintenance guidance</li>
+        </ul>
+        <div class="mcr-flow">
+          <span class="flow-tag" style="opacity:0.5">Shaped by feedback</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW THEY CONNECT -->
+<section style="background:var(--bg-dark);padding:72px 0">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Integration</span>
+      <h2 style="color:white">How the modules connect</h2>
+      <p style="color:rgba(255,255,255,0.6)">These flows are the natural behaviour of modules designed to work together from the very beginning.</p>
+    </div>
+    <div class="flow-examples">
+      <div class="flow-example">
+        <div class="flow-example-icon">⚡</div>
+        <h4>Sensor alert to work order</h4>
+        <div class="flow-example-steps">
+          <span class="fes">AIM detects KPI threshold breach</span>
+          <span class="fes-arrow">→</span>
+          <span class="fes">OAH health status updates</span>
+          <span class="fes-arrow">→</span>
+          <span class="fes">WOM work order generated</span>
+          <span class="fes-arrow">→</span>
+          <span class="fes">AIM reliability stats updated on closure</span>
+        </div>
+      </div>
+      <div class="flow-example">
+        <div class="flow-example-icon">🔄</div>
+        <h4>Shift handover to intervention</h4>
+        <div class="flow-example-steps">
+          <span class="fes">Operator logs anomaly in LOG</span>
+          <span class="fes-arrow">→</span>
+          <span class="fes">Shift leader escalates to WOM</span>
+          <span class="fes-arrow">→</span>
+          <span class="fes">Technician executes &amp; closes WO</span>
+          <span class="fes-arrow">→</span>
+          <span class="fes">OAH timeline updated automatically</span>
+        </div>
+      </div>
+      <div class="flow-example">
+        <div class="flow-example-icon">📋</div>
+        <h4>Inspection plan to corrective action</h4>
+        <div class="flow-example-steps">
+          <span class="fes">SCHED triggers annual inspection</span>
+          <span class="fes-arrow">→</span>
+          <span class="fes">INS inspection executed — FAIL result</span>
+          <span class="fes-arrow">→</span>
+          <span class="fes">WOM corrective WO auto-created</span>
+          <span class="fes-arrow">→</span>
+          <span class="fes">AIM risk assessment updated</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE PRINCIPLES -->
+<section style="background:var(--bg-alt);padding:72px 0">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Design Principles</span>
+      <h2>Three principles behind every choice</h2>
+    </div>
+    <div class="principles-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="principle-card" style="background:var(--bg);border:1px solid var(--border);color:var(--text)">
+        <div class="principle-icon">🎯</div>
+        <h3 style="color:var(--primary)">Guide, don't just collect</h3>
+        <p style="color:var(--text-light)">At every critical point there is a mechanism that helps the user — wizards, adaptive forms, templates, checklists. The goal is not a database of records, but helping people do things well without needing to be experts.</p>
+      </div>
+      <div class="principle-card" style="background:var(--bg);border:1px solid var(--border);color:var(--text)">
+        <div class="principle-icon">🌱</div>
+        <h3 style="color:var(--primary)">Start from what exists</h3>
+        <p style="color:var(--text-light)">No organisation starts from zero. OpenAPM is designed to gradually incorporate existing reality — not to replace it with a system imposed from above. You can start with one module and grow.</p>
+      </div>
+      <div class="principle-card" style="background:var(--bg);border:1px solid var(--border);color:var(--text)">
+        <div class="principle-icon">📌</div>
+        <h3 style="color:var(--primary)">Traceability as value</h3>
+        <p style="color:var(--text-light)">Every action generates a trace — not to monitor people, but to build the memory of the plant. That memory, over time, becomes the most valuable asset of any operational organisation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" style="padding:72px 0">
+  <div class="container">
+    <h2>The module roadmap is shaped by feedback</h2>
+    <p>Tell us which process is most critical in your organisation — your priorities directly influence what gets built first.</p>
+    <div class="cta-actions">
+      <a href="{{ '/contact/' | relative_url }}" class="btn btn-primary">Share Your Priorities</a>
+      <a href="{{ '/blog/' | relative_url }}" class="btn btn-outline">Read the Full Article</a>
+    </div>
+  </div>
+</section>
