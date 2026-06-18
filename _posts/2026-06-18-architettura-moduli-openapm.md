@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Come ho strutturato i moduli di OpenAPM — e perché"
+title: "Come ho strutturato i moduli di OpenAPM — e perché [IT]"
 date: 2026-06-18
 author: Salvatore Stracquadanio
 tags: [Architettura, Moduli, APM, Manutenzione]
