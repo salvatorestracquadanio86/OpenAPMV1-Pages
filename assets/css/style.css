@@ -889,12 +889,15 @@ section    { padding: 80px 0; }
 }
 .install-section p, .install-section li {
   color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 10px;
+  line-height: 1.8;
+  margin-bottom: 16px;
 }
 .install-section ul {
   padding-left: 20px;
-  margin-bottom: 14px;
+  margin-bottom: 20px;
+}
+.install-section li {
+  margin-bottom: 8px;
 }
 .code-block {
   background: var(--bg-dark);

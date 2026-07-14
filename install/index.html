@@ -28,11 +28,17 @@ description: "Get OpenAPM running in minutes with Docker. No build steps, no dep
 
   <!-- COMPOSE FILE -->
   <div class="install-section">
-    <h2>2 — Create the compose file</h2>
+    <h2>2 — Download the compose file</h2>
     <p>
-      Create a <code>docker-compose.yml</code> file in a local folder of your choice and paste the contents below.
+      Download the <code>docker-compose.yml</code> file and place it in a local folder of your choice.
       The stack includes MongoDB 7 — no external database required.
     </p>
+    <p>
+      <a href="{{ '/downloads/docker-compose.yml' | relative_url }}" download="docker-compose.yml" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none">
+        ⬇ Download docker-compose.yml
+      </a>
+    </p>
+    <p style="font-size:14px;color:var(--text-muted,#888)">Or copy the contents below:</p>
     <pre class="code-block"><code># docker-compose.yml — OpenAPM (OAH + WOM modules, MongoDB included)
 #
 # ── Quick start ───────────────────────────────────────────────

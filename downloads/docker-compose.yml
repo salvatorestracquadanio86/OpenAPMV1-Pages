@@ -1,0 +1,73 @@
+# docker-compose.yml — OpenAPM (OAH + WOM modules, MongoDB included)
+#
+# ── Quick start ───────────────────────────────────────────────────────────────
+#   docker compose up -d
+#
+# ── First-time DB initialisation (required) ───────────────────────────────────
+#   docker compose exec openapm node scripts/seed-setup.js
+#
+# ── Demo data (optional) ──────────────────────────────────────────────────────
+#   docker compose exec openapm node scripts/seed-demo-oah.js
+#   docker compose exec openapm node scripts/seed-demo-work-orders.js
+#   docker compose exec openapm node scripts/seed-demo-ins-inspections.js
+#
+# ── Admin password ────────────────────────────────────────────────────────────
+#   Printed to stdout on first boot, or retrieve it with:
+#   docker compose exec openapm cat /data/admin_password.txt
+#
+# ── Application ───────────────────────────────────────────────────────────────
+#   Once running, open http://localhost:4500/ui in your browser.
+#   Swagger API docs: http://localhost:4500/api
+
+services:
+
+  # ── MongoDB 7 ──────────────────────────────────────────────────────────────
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: openapm
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.runCommand({ ping: 1 })"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # ── OpenAPM application ────────────────────────────────────────────────────
+  openapm:
+    image: openapmproject/openapm:beta
+    restart: unless-stopped
+    ports:
+      - "4500:4500"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    volumes:
+      - openapm_data:/data   # persists generated admin password and app data
+    environment:
+      NODE_ENV: production
+      PORT: 4500
+
+      # MongoDB connection — points to the mongo service above
+      MONGODB_CONNECTION_STRING: mongodb://mongo:27017
+      MONGODB_NAME: openapm
+
+      # IMPORTANT: replace with a long random string before going to production
+      # Example: openssl rand -base64 48
+      JWT_SECRET: change-this-secret-in-production
+      JWT_EXPIRATION: 8h
+
+      # Default admin credentials — change the password after first login
+      SML_ADMIN_USER: admin
+      SML_ADMIN_PWD: changeme
+
+      # Set to "false" to disable Swagger in production
+      SWAGGER_ENABLED: "true"
+
+# ── Named volumes ──────────────────────────────────────────────────────────────
+volumes:
+  mongo_data:    # MongoDB data directory
+  openapm_data:  # OpenAPM persistent data (admin password, uploads)
