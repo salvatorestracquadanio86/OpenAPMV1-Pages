@@ -873,6 +873,89 @@ section    { padding: 80px 0; }
 }
 
 /* ============================================================
+   INSTALL PAGE
+   ============================================================ */
+.install-section {
+  margin-bottom: 48px;
+}
+.install-section h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+.install-section p, .install-section li {
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.install-section ul {
+  padding-left: 20px;
+  margin-bottom: 14px;
+}
+.code-block {
+  background: var(--bg-dark);
+  border: 1px solid rgba(15,188,181,0.2);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 14px 0 18px;
+  overflow-x: auto;
+}
+.code-block code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  color: #a8d8cc;
+  white-space: pre;
+  line-height: 1.6;
+}
+.install-section code {
+  background: rgba(15,188,181,0.08);
+  border: 1px solid rgba(15,188,181,0.2);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  color: var(--accent);
+}
+.config-table-wrap {
+  overflow-x: auto;
+  margin: 16px 0;
+}
+.config-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.config-table th {
+  background: var(--primary);
+  color: #fff;
+  text-align: left;
+  padding: 10px 14px;
+  font-weight: 600;
+}
+.config-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+.config-table tr:last-child td { border-bottom: none; }
+.config-table tr:nth-child(even) td { background: rgba(27,58,92,0.04); }
+.config-table td code {
+  background: rgba(15,188,181,0.08);
+  border: 1px solid rgba(15,188,181,0.2);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  color: var(--accent);
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 920px) {

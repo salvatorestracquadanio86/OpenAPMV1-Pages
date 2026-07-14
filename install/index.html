@@ -1,29 +1,181 @@
 ---
 layout: default
 title: "Install"
-description: "Installation instructions for OpenAPM — coming as the first modules become available."
+description: "Get OpenAPM running in minutes with Docker. No build steps, no dependencies."
 ---
 
 <section class="page-hero">
   <div class="container">
-    <h1>Installation</h1>
-    <p>Step-by-step instructions to get OpenAPM running in your environment.</p>
+    <h1>Install OpenAPM</h1>
+    <p>Distributed as a Docker image. You only need Docker installed — no build steps, no dependencies.</p>
   </div>
 </section>
 
-<div class="container">
-  <div class="install-content">
-    <div class="coming-soon-card">
-      <div class="icon">🔧</div>
-      <h3>Installation Guide Coming Soon</h3>
-      <p>
-        OpenAPM is currently in the concept and community feedback phase.
-        Installation instructions will be published here as soon as the first modules become available for testing.
-      </p>
-      <p>
-        Want to be notified when early access opens?
-        <a href="{{ '/contact/' | relative_url }}">Get in touch</a> and I will keep you updated as things progress.
-      </p>
-    </div>
+<div class="container" style="max-width:860px;padding-bottom:80px">
+
+  <!-- PREREQUISITES -->
+  <div class="install-section">
+    <h2>Prerequisites</h2>
+    <p>Docker 24+ with Docker Compose. Nothing else.</p>
   </div>
+
+  <!-- QUICK PULL -->
+  <div class="install-section">
+    <h2>1 — Pull the image</h2>
+    <p>Pull the latest beta image directly from Docker Hub:</p>
+    <pre class="code-block"><code>docker pull openapmproject/openapm:0.1.0-beta.1</code></pre>
+  </div>
+
+  <!-- COMPOSE FILE -->
+  <div class="install-section">
+    <h2>2 — Create the compose file</h2>
+    <p>
+      Create a <code>docker-compose.yml</code> file in a local folder of your choice and paste the contents below.
+      The stack includes MongoDB 7 — no external database required.
+    </p>
+    <pre class="code-block"><code># docker-compose.yml — OpenAPM (OAH + WOM modules, MongoDB included)
+#
+# ── Quick start ───────────────────────────────────────────────
+#   docker compose up -d
+#
+# ── First-time DB initialisation (required) ───────────────────
+#   docker compose exec openapm node scripts/seed-setup.js
+#
+# ── Demo data (optional) ──────────────────────────────────────
+#   docker compose exec openapm node scripts/seed-demo-oah.js
+#   docker compose exec openapm node scripts/seed-demo-work-orders.js
+#   docker compose exec openapm node scripts/seed-demo-ins-inspections.js
+#
+# ── Admin password ────────────────────────────────────────────
+#   Printed to stdout on first boot, or retrieve it with:
+#   docker compose exec openapm cat /data/admin_password.txt
+#
+# ── Application ───────────────────────────────────────────────
+#   Once running, open http://localhost:4500/ui in your browser.
+#   Swagger API docs: http://localhost:4500/api
+
+services:
+
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: openapm
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.runCommand({ ping: 1 })"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  openapm:
+    image: openapmproject/openapm:beta
+    restart: unless-stopped
+    ports:
+      - "4500:4500"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    volumes:
+      - openapm_data:/data
+    environment:
+      NODE_ENV: production
+      PORT: 4500
+      MONGODB_CONNECTION_STRING: mongodb://mongo:27017
+      MONGODB_NAME: openapm
+      # IMPORTANT: replace with a long random string before going to production
+      # Generate with: openssl rand -base64 48
+      JWT_SECRET: change-this-secret-in-production
+      JWT_EXPIRATION: 8h
+      SML_ADMIN_USER: admin
+      SML_ADMIN_PWD: changeme
+      SWAGGER_ENABLED: "true"
+
+volumes:
+  mongo_data:
+  openapm_data:</code></pre>
+  </div>
+
+  <!-- START -->
+  <div class="install-section">
+    <h2>3 — Start the stack</h2>
+    <pre class="code-block"><code>docker compose up -d</code></pre>
+    <p>This starts both the OpenAPM application and MongoDB. MongoDB is health-checked before OpenAPM starts — no race conditions.</p>
+  </div>
+
+  <!-- SEED -->
+  <div class="install-section">
+    <h2>4 — Initialise the database</h2>
+    <p>Run this <strong>once</strong> after the first boot. It creates all required collections, system codes, UI views, and default roles.</p>
+    <pre class="code-block"><code>docker compose exec openapm node scripts/seed-setup.js</code></pre>
+  </div>
+
+  <!-- OPEN -->
+  <div class="install-section">
+    <h2>5 — Open the application</h2>
+    <p>Navigate to <a href="http://localhost:4500/ui" target="_blank" rel="noopener"><strong>http://localhost:4500/ui</strong></a> in your browser.</p>
+    <p>Log in with:</p>
+    <ul>
+      <li><strong>Username:</strong> <code>admin</code></li>
+      <li><strong>Password:</strong> printed to the container log on first boot, or retrieve it with:</li>
+    </ul>
+    <pre class="code-block"><code>docker compose exec openapm cat /data/admin_password.txt</code></pre>
+    <p>⚠️ Change the admin password immediately after first login.</p>
+    <p>Swagger API docs are available at <code>http://localhost:4500/api</code></p>
+  </div>
+
+  <!-- DEMO DATA -->
+  <div class="install-section">
+    <h2>Optional — Load demo data</h2>
+    <p>Explore the application with realistic sample data across all available modules:</p>
+    <pre class="code-block"><code>docker compose exec openapm node scripts/seed-demo-oah.js
+docker compose exec openapm node scripts/seed-demo-work-orders.js
+docker compose exec openapm node scripts/seed-demo-ins-inspections.js</code></pre>
+  </div>
+
+  <!-- CONFIG TABLE -->
+  <div class="install-section">
+    <h2>Configuration</h2>
+    <p>All configuration is passed via environment variables in <code>docker-compose.yml</code>.</p>
+    <div class="config-table-wrap">
+      <table class="config-table">
+        <thead>
+          <tr>
+            <th>Variable</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>MONGODB_CONNECTION_STRING</code></td><td><code>mongodb://mongo:27017</code></td><td>MongoDB URI</td></tr>
+          <tr><td><code>MONGODB_NAME</code></td><td><code>openapm</code></td><td>Database name</td></tr>
+          <tr><td><code>JWT_SECRET</code></td><td><em>(placeholder)</em></td><td>Change this — use a long random string</td></tr>
+          <tr><td><code>JWT_EXPIRATION</code></td><td><code>8h</code></td><td>Session token lifetime</td></tr>
+          <tr><td><code>SML_ADMIN_USER</code></td><td><code>admin</code></td><td>Default admin username</td></tr>
+          <tr><td><code>SML_ADMIN_PWD</code></td><td><code>changeme</code></td><td>Default admin password — change after first login</td></tr>
+          <tr><td><code>SWAGGER_ENABLED</code></td><td><code>true</code></td><td>Expose API docs at <code>/api</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>To generate a secure <code>JWT_SECRET</code>:</p>
+    <pre class="code-block"><code>openssl rand -base64 48</code></pre>
+  </div>
+
+  <!-- UPDATE -->
+  <div class="install-section">
+    <h2>Updating to a new version</h2>
+    <pre class="code-block"><code>docker compose pull
+docker compose up -d</code></pre>
+  </div>
+
+  <!-- SUPPORT -->
+  <div class="install-section" style="border-top:1px solid var(--border);padding-top:32px;margin-top:8px">
+    <p>
+      Questions or issues during installation?
+      <a href="mailto:openapmproject@gmail.com">openapmproject@gmail.com</a>
+    </p>
+  </div>
+
 </div>
