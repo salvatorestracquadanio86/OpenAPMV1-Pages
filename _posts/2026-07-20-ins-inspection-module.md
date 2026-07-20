@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "INS — Inspection Module: from the field to the report [EN]"
-date: 2026-07-14
+date: 2026-07-20
 author: Salvatore Stracquadanio
 tags: [INS, Modules, Inspection, NDT, APM]
 excerpt: "The INS module structures the inspection process from start to finish: planning, field data collection, anomaly classification, and integration with the asset event timeline."
